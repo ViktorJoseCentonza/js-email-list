@@ -15,10 +15,6 @@ checkboxEl.addEventListener('change', function () {
     console.log(`keep old emails: ${keepEmails}`);
 })
 
-
-
-
-
 buttonEl.addEventListener('click', getNewEmails)
 
 
@@ -29,8 +25,11 @@ console.log(emailList);
 //functions
 function getNewEmails(e) {
     e.preventDefault()
+    buttonEl.disabled = true;
     if (keepEmails == false) {
         olEl.innerHTML = ''
+    } else {
+        olEl.innerHTML += `<hr class="border bg-warning">`
     }
     for (let i = 0; i < 10; i++) {
         fetch(`https://flynn.boolean.careers/exercises/api/random/mail`)
@@ -42,6 +41,7 @@ function getNewEmails(e) {
             .catch(error => console.error(`Error:` + error))
 
     }
+    buttonEl.disabled = false;
     console.log(keepEmails);
 }
 function renderLiElement(response) {
