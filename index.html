@@ -9,10 +9,21 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-info">
 
     <main>
-        <div class="container">
+        <div class="d-flex justify-content-center">
+            <button id="new-api-call" type="submit" class="button bg-warning m-4">
+                Generate new emails!
+            </button>
+
+            <div class="form-check align-self-center">
+                <input class="form-check-input" type="checkbox" value="" id="keep-generated" />
+                <label class="form-check-label" for=""> keep previously generated</label>
+            </div>
+        </div>
+
+        <div class="container mx-auto text-center">
             <ol class="ol-element">
 
             </ol>
