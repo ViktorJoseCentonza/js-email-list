@@ -6,7 +6,7 @@ const buttonEl = document.getElementById(`new-api-call`)
 //console.log(buttonEl);
 
 const checkboxEl = document.getElementById(`keep-generated`)
-console.log(checkboxEl);
+//console.log(checkboxEl);
 
 let keepEmails = false
 
@@ -19,34 +19,41 @@ buttonEl.addEventListener('click', getNewEmails)
 
 
 
-
-console.log(emailList);
-
 //functions
-function getNewEmails(e) {
-    e.preventDefault()
+
+async function getNewEmails(e) {
+    e.preventDefault();
     buttonEl.disabled = true;
+
     if (keepEmails == false) {
-        olEl.innerHTML = ''
+        olEl.innerHTML = '';
     } else {
-        olEl.innerHTML += `<hr class="border bg-warning">`
+        olEl.innerHTML += `<hr class="border bg-warning">`;
     }
+    const fetchPromises = [];
     for (let i = 0; i < 10; i++) {
-        fetch(`https://flynn.boolean.careers/exercises/api/random/mail`)
+        const fetchPromise = fetch(`https://flynn.boolean.careers/exercises/api/random/mail`)
             .then(response => response.json())
             .then(data => {
-                renderLiElement(data.response)
-                emailList.push(data.response)
+                renderLiElement(data.response);
+                emailList.push(data.response);
             })
-            .catch(error => console.error(`Error:` + error))
-
+            .catch(error => console.error(`Error:` + error));
+        fetchPromises.push(fetchPromise);
     }
-    buttonEl.disabled = false;
+    await Promise.all(fetchPromises);
+    enableButton();
     console.log(keepEmails);
 }
+
+
 function renderLiElement(response) {
     const markup = `<li class="card">${response}</li>`
 
     olEl.innerHTML += markup
+}
+
+function enableButton() {
+    buttonEl.disabled = false;
 }
 
